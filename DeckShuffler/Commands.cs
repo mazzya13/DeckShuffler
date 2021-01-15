@@ -35,12 +35,6 @@ namespace DeckShuffler
                 Console.WriteLine("Колоды с указанным именем не существует!");
             }
         }
-        public static void GetDeckNamesList()
-        {
-            Console.WriteLine("Есть колоды с указанными именами: ");
-            foreach (var deck in decksDictionary)
-                Console.WriteLine($"\n{deck.Key}");
-        }
         public static void FindNamedDeck()
         {
             Console.WriteLine("Введите имя колоды");
@@ -55,10 +49,23 @@ namespace DeckShuffler
             GetDeckNamesList();
             Console.WriteLine("\nВведите имя колоды для перетасовки:");
             string deckName = Console.ReadLine();
-            var deckToShuffle = decksDictionary[deckName];
-            Shuffler.SimpleShuffler(deckToShuffle);
-            ShowDeck(deckName);
-            Console.WriteLine("\nКолода успешно перетосована");
+            if (decksDictionary.ContainsKey(deckName))
+            {
+                var deckToShuffle = decksDictionary[deckName];
+                Shuffler.SimpleShuffler(deckToShuffle);
+                ShowDeck(deckName);
+                Console.WriteLine("\nКолода успешно перетосована");
+            }
+            else
+            {
+                Console.WriteLine("Колоды с указанным именем не существует!");
+            }
+        }
+        public static void GetDeckNamesList()
+        {
+            Console.WriteLine("Есть колоды с указанными именами: ");
+            foreach (var deck in decksDictionary)
+                Console.WriteLine($"\n{deck.Key}");
         }
         private static void ShowDeck(string deckName)
         {
